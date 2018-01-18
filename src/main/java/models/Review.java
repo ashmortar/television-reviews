@@ -7,14 +7,12 @@ public class Review {
     private String content;
     private int showId;
     private String reviewerName;
-    private LocalDateTime date;
     private int rating;
 
-    public Review(String content, int showId, String reviewerName, LocalDateTime date, int rating) {
+    public Review(String content, int showId, String reviewerName,  int rating) {
         this.content = content;
         this.showId = showId;
         this.reviewerName = reviewerName;
-        this.date = date;
         this.rating = rating;
     }
 
@@ -48,14 +46,6 @@ public class Review {
 
     public void setReviewerName(String reviewerName) {
         this.reviewerName = reviewerName;
-    }
-
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
     }
 
     public int getRating() {

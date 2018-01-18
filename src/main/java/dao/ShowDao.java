@@ -1,16 +1,21 @@
 package dao;
 
+import models.Review;
+import models.Show;
+
+import java.util.List;
+
 public interface ShowDao {
 
 
     //create
-    //public void add(Show show); //add show to db
+    void add(Show show); //add show to db
 
     //read
-    //public Show findById(int id); //return specific show
-    //public List<Show> getAll(): //return all shows
-    //public List<Show> getAllByNetwork(int networkId);  //return all shows from a network
-    //public List<Show> getAllByName(): //returns all by name alphabetized
+    Show findById(int id); //return specific show
+    List<Show> getAll(); //return all shows
+    List<Review> getAllReviewsByShow(int showId); //return all reviews for a show
+    List<Show> getAllByName(); //returns all by name alphabetized
 
     //update
 

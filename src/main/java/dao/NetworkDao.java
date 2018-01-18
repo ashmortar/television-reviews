@@ -9,7 +9,7 @@ public interface NetworkDao {
     //read
     //public Network findById(int id); //return specific network
     //public List<Network> getAll(): //return all shows
-
+    //public List<Show> getAllByShowsNetwork(int networkId);  //return all shows from a network
     //public List<Network> getAllByAvailability(String availability): //returns all by name availability
 
     //update

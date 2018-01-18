@@ -5,14 +5,14 @@ public class Show {
     private int id;
     private String title;
     private String summary;
-    private String release_date;
+    private String releaseDate;
     private int networkId;
     private int seasons;
 
-    public Show(String title, String summary, String release_date, int networkId, int seasons) {
+    public Show(String title, String summary, String releaseDate, int networkId, int seasons) {
         this.title = title;
         this.summary = summary;
-        this.release_date = release_date;
+        this.releaseDate = releaseDate;
         this.networkId = networkId;
         this.seasons = seasons;
     }
@@ -41,12 +41,12 @@ public class Show {
         this.summary = summary;
     }
 
-    public String getRelease_date() {
-        return release_date;
+    public String getReleaseDate() {
+        return releaseDate;
     }
 
-    public void setRelease_date(String release_date) {
-        this.release_date = release_date;
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public int getNetworkId() {
@@ -77,7 +77,7 @@ public class Show {
         if (seasons != show.seasons) return false;
         if (!title.equals(show.title)) return false;
         if (summary != null ? !summary.equals(show.summary) : show.summary != null) return false;
-        return release_date != null ? release_date.equals(show.release_date) : show.release_date == null;
+        return releaseDate != null ? releaseDate.equals(show.releaseDate) : show.releaseDate == null;
     }
 
     @Override
@@ -85,7 +85,7 @@ public class Show {
         int result = id;
         result = 31 * result + title.hashCode();
         result = 31 * result + (summary != null ? summary.hashCode() : 0);
-        result = 31 * result + (release_date != null ? release_date.hashCode() : 0);
+        result = 31 * result + (releaseDate != null ? releaseDate.hashCode() : 0);
         result = 31 * result + networkId;
         result = 31 * result + seasons;
         return result;
