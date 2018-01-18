@@ -66,6 +66,42 @@ public class Sql2oShowDao implements ShowDao{
             return con.createQuery(sql)
                     .executeAndFetch(Show.class);
         }
+    }
 
+    @Override
+    public void update(int id, String summary, int seasons) {
+        String sql = "UPDATE shows SET summary = :summary, seasons = :seasons WHERE id = :id";
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .addParameter("summary", summary)
+                    .addParameter("seasons", seasons)
+                    .executeUpdate();
+        } catch (Sql2oException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    @Override
+    public void deleteById(int id) {
+        String sql = "DELETE FROM shows WHERE id = :id";
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        } catch (Sql2oException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    @Override
+    public void clearAllShows() {
+        String sql = "DELETE FROM shows";
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql)
+                    .executeUpdate();
+        } catch (Sql2oException ex) {
+            System.out.println(ex);
+        }
     }
 }

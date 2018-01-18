@@ -3,6 +3,7 @@ package dao;
 import com.sun.org.apache.regexp.internal.RE;
 import models.Review;
 import models.Show;
+import models.Show;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -101,4 +102,40 @@ public class Sql2oShowDaoTest {
         expectedOrder.add(secondShow);
         assertTrue(expectedOrder.equals(showDao.getAllByName()));
     }
+
+    @Test
+    public void update_changesValuesCorrectly_true() throws Exception {
+        Show show = setupShow();
+        Show secondShow = setupShow();
+        showDao.add(show);
+        showDao.add(secondShow);
+        showDao.update(2, "new summary", 2);
+        assertEquals("summary", showDao.findById(1).getSummary());
+        assertEquals("new summary", showDao.findById(2).getSummary());
+    }
+
+    @Test
+    public void deleteBuId_removesCorrectEntry_true() throws Exception {
+        Show show = setupShow();
+        Show secondShow = setupShow();
+        showDao.add(show);
+        showDao.add(secondShow);
+        showDao.deleteById(1);
+        assertEquals(1, showDao.getAll().size());
+        assertTrue(showDao.getAll().contains(secondShow));
+    }
+
+    @Test
+    public void clearAllShowss_removesAllInstancesOfShow_true() throws Exception {
+        Show show = setupShow();
+        Show show2 = setupShow();
+        Show show3 = setupShow();
+        showDao.add(show);
+        showDao.add(show2);
+        showDao.add(show3);
+        assertEquals(3, showDao.getAll().size());
+        showDao.clearAllShows();
+        assertEquals(0, showDao.getAll().size());
+    }
+
 }

@@ -87,7 +87,7 @@ public class Sql2oReviewDaoTest {
     }
 
     @Test
-    public void deleteBuId_removesCorrectEntry_true() throws Exception {
+    public void deleteById_removesCorrectEntry_true() throws Exception {
         Review review = setupReview();
         Review secondReview = setupReview();
         reviewDao.add(review);

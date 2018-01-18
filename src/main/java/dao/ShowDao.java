@@ -19,10 +19,10 @@ public interface ShowDao {
 
     //update
 
-    //public void update(int id, String summary, int seasons)
+    void update(int id, String summary, int seasons);
 
     //delete
 
-    //public void deleteById(int id); //delete a single show
-    //public void clearAllShows(); //delete all shows
+    void deleteById(int id); //delete a single show
+    public void clearAllShows(); //delete all shows
 }
