@@ -1,19 +1,28 @@
 {{#partial "content"}}
-    <p>Here are all the shows listed from {{network.name}}</p>
+    <h3>{{network.name}}</h3>
+    <hr>
     {{#if shows}}
     <ul>
         {{#each shows}}
             <li>
-                <h5>{{ title }}</h5>
-                <p>{{ summary }}  <a href="/network/{{networkid}}/shows/{{id}}">see reviews</a> </p>
+                <h5>{{title}}</h5>
+                <p>{{summary}}  <a href="/network/{{network.id}}/shows/{{id}}">see/add reviews</a> </p>
             </li>
         {{/each}}
     </ul>
+        <hr>
+    {{else}}
+        <h5>Wait!</h5>
+        <p>You need to <a href="/networks/{{network.id}}/shows/new">add a show</a> first!</p>
+        <hr>
     {{/if}}
-    <a href="/networks/update">Edit this category</a><br>
-    <a href="/networks/{{networkdId}}/delete">DELETE this network (no undo)</a>
-{{else}}
-    <p>No Shows!</p>
+    <p><a href="/networks/{{network.id}}/shows/new">Add</a> a show</p>
+    <p><a href="/networks/{{network.id}}/update">Change</a> this network<br></p>
+    <p><a href="/networks/{{network.id}}/delete">Destroy</a> this network</p>
+    <p><a href="/networks/{{network.id}}/shows/delete">Destroy</a> all shows in this network</p>
+    <br>
+    <br>
+    <a href="/"><button class="btn btn-default">back</button></a>
 
 {{/partial}}
 

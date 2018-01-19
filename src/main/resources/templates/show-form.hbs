@@ -1,0 +1,38 @@
+{{#partial "content"}}
+    <h3>Shows</h3>
+    <p>make some bits flip in my database</p>
+    <hr>
+    {{#if showToEdit}}
+        <h5>{{showToEdit.name}}</h5>
+        <form action="/networks/:networkId/shows/:showId" method="post">
+            <label for="newSummary">Change the summary:</label>
+            <br>
+            <input id="newSummary" title="newSummary" type="text-area" value="{{showToEdit.summary}}">
+            <br>
+            <label for="newAvailability">Change number of seasons:</label>
+            <br>
+            <label for="newSeasons">How many seasons:</label>
+            <input id="newSeasons" name="newSeasons" type="number" value="{{showToEdit.seasons}}">
+    {{else}}
+        <form action="/networks/:networkId/shows/new" method="post">
+            <label for="title">The title:</label>
+            <br>
+            <input id="title" name="title" type="text">
+            <br>
+            <label for="summary">What it is all about:</label>
+            <br>
+            <input type="text-area" id="summary" name="summary">
+            <br>
+            <label for="releaseDate">When it started:</label>
+            <br>
+            <input id="releaseDate" name="releaseDate" type="date">
+    {{/if}}
+        <button type="submit" class="btn btn-default">submit</button>
+    </form>
+        <br>
+        <br>
+        <a href="/"><button class="btn btn-default">back</button></a>
+
+
+{{/partial}}
+{{> layout.hbs}}

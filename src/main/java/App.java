@@ -94,6 +94,12 @@ public class App {
         //get: show a form to create a new show
         get("networks/:networkId/shows/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
+
+            int networkId = Integer.parseInt(request.params(":networkId"));
+            Network network = networkDao.findById(networkId);
+
+            model.put("network", network);
+
             return new ModelAndView(model, "show-form.hbs");
         }, new HandlebarsTemplateEngine());
 

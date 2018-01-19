@@ -1,10 +1,19 @@
 {{#partial "content"}}
+    <h3>Networks</h3>
+    <hr>
     {{#if networks}}
         <ul>
         {{#each networks}}
             <li>{{name}} <a href="/networks/{{id}}">see shows</a></li>
         {{/each}}
         </ul>
+
+    {{else}}
+        <h3>Whoa there!</h3>
+        <p>You need to <a href="/networks/new">add a network</a> first!</p>
+        <br>
+        <br>
+        <a href="/"><button class="btn btn-default">back</button></a>
     {{/if}}
 
 {{/partial}}

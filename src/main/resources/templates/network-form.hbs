@@ -1,21 +1,38 @@
 {{#partial "content"}}
+    <h3>Networks</h3>
+    <p>make some bits flip in my database</p>
+    <hr>
     {{#if networkToEdit}}
-
-
-
+        <form action="/networks/:networkId/update" method="post">
+            <label for="newName">Change what you call it:</label>
+            <br>
+            <input id="newName" name="newName" type="text" value="{{networkToEdit.name}}">
+            <br>
+            <label for="newAvailability">Change where you get it:</label>
+            <br>
+            <select id="newAvailability" name="newAvailability">
+                <option value="broadcast">broadcast</option>
+                <option value="cable">cable</option>
+                <option value="subscription">subscription</option>
+            </select>
     {{else}}
         <form action="/networks/new" method="post">
-            <label for="name">Network Name:</label>
+            <label for="name">What you call it:</label>
             <br>
             <input id="name" name="name" type="text">
+            <br>
+            <label for="availavility">How you get it:</label>
             <select id="availability" name="availability">
                 <option value="broadcast">broadcast</option>
                 <option value="cable">cable</option>
                 <option value="subscription">subscription</option>
             </select>
     {{/if}}
-    <button type="submit" class="btn btn-default">submit</button>
+        <button type="submit" class="btn btn-default">submit</button>
     </form>
+        <br>
+        <br>
+        <a href="/"><button class="btn btn-default">back</button></a>
 
 
 {{/partial}}
