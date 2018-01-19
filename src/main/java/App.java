@@ -18,7 +18,7 @@ import static spark.Spark.*;
 
 public class App {
     public static void main(String[] args) {
-        //tells spark/handelbars where to find images and stuff
+        //tells spark/handelbars where to find images, css
         staticFileLocation("/public");
 
         //connect to database
@@ -35,7 +35,7 @@ public class App {
 
         //get: homepage
         get("/", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
+            Map<String, Object> model = new HashMap<>();        //
 
             //add all data to path
             List<Network> networks = networkDao.getAll();
@@ -49,7 +49,7 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
 
-        //delete all routes (need to be before dynamic ids
+        //delete all routes (need to be before dynamic ids)
 
         //get: delete all networks
         get("/networks/delete", (request, response) -> {
@@ -80,6 +80,7 @@ public class App {
             return new ModelAndView(model, "network-form.hbs");
         }, new HandlebarsTemplateEngine());
 
+        //post: process new network form
         post("/networks/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             String name = request.queryParams("name");
@@ -96,6 +97,7 @@ public class App {
             return new ModelAndView(model, "show-form.hbs");
         }, new HandlebarsTemplateEngine());
 
+        //post: process new show form
         post("networks/:networkId/shows/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             String title = request.queryParams("title");
@@ -115,6 +117,7 @@ public class App {
             return new ModelAndView(model, "review-form.hbs");
         }, new HandlebarsTemplateEngine());
 
+        //post: process new review form
         post("/networks/:networkId/shows/:showId/review/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             String content = request.queryParams("content");
@@ -128,7 +131,7 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
 
-        //update routes
+        //read routes
 
         //get: show all networks
         get("/networks", (request, response) -> {
@@ -206,6 +209,7 @@ public class App {
             return new ModelAndView(model, "network-form.hbs");
         }, new HandlebarsTemplateEngine());
 
+        //post: process update network form
         post("/networks/:networkId/update", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
 
@@ -231,6 +235,7 @@ public class App {
             return new ModelAndView(model, "show-form.hbs");
         }, new HandlebarsTemplateEngine());
 
+        //post: process update show form
         post("/networks/:networkId/shows/:showId/update", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
 
@@ -255,16 +260,53 @@ public class App {
             return new ModelAndView(model, "update.hbs");
         }, new HandlebarsTemplateEngine());
 
+        //post: process update review form
         post("/networks/:networkId/shows/:showId/reviews/:reviewId/update", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
 
-            int requestId = Integer.parseInt(request.params("requestId"));
+            int reviewId = Integer.parseInt(request.params("requestId"));
             String newContent = request.queryParams("newContent");
             int newRating = Integer.parseInt(request.queryParams("newRating"));
 
-            reviewDao.update(requestId, newContent, newRating);
+            reviewDao.update(reviewId, newContent, newRating);
+
             return new ModelAndView(model, "update.hbs");
         }, new HandlebarsTemplateEngine());
 
+
+        //delete routes
+
+        //get: delete a network
+        get("/networks/:networkId/delete", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+
+            int networkId = Integer.parseInt(request.params("networkId"));
+
+            reviewDao.deleteById(networkId);
+
+            return new ModelAndView(model, "delete.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        //get: delete a show from a network
+        get("/networks/:networkId/shows/:showId/delete", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+
+            int showId = Integer.parseInt("showId");
+
+            reviewDao.deleteById(showId);
+
+            return new ModelAndView(model, "delete.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        //get: delete a review from a show
+        get("/networks/:networkId/shows/:showId/delete", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+
+            int reviewId = Integer.parseInt(request.params("reviewID"));
+
+            reviewDao.deleteById(reviewId);
+
+            return new ModelAndView(model, "delete.hbs");
+        }, new HandlebarsTemplateEngine());
     }
 }
