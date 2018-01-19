@@ -5,10 +5,10 @@
     <hr>
     {{#if reviewToEdit}}
         <h5>{{reviewToEdit.name}}</h5>
-        <form action="/networks/{{network.id}}/shows/{{show.id}}/reviews/{{reviewToEdit.id}}" method="post">
+        <form action="/networks/{{network.id}}/shows/{{show.id}}/reviews/{{reviewToEdit.id}}/update" method="post">
             <label for="newContent">Change the review:</label>
             <br>
-            <input id="newContent" title="newContent" type="text-area" value="{{reviewToEdit.content}}">
+            <input id="newContent" name="newContent" type="text" value="{{reviewToEdit.content}}">
             <br>
             <label for="newRating">Change the rating:</label>
             <br>
@@ -27,7 +27,7 @@
             <br>
             <label for="content">What did you think?:</label>
             <br>
-            <input type="text-area" id="content" name="content">
+            <input type="text" id="content" name="content">
             <br>
             <select id="rating" name="rating">
                 <option value="1">1  star</option>

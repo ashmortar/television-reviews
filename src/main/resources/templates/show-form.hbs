@@ -4,10 +4,10 @@
     <hr>
     {{#if showToEdit}}
         <h5>{{showToEdit.name}}</h5>
-        <form action="/networks/{{network.id}}/shows/:showId" method="post">
+        <form action="/networks/{{network.id}}/shows/{{show.id}}/update" method="post">
             <label for="newSummary">Change the summary:</label>
             <br>
-            <input id="newSummary" title="newSummary" type="text-area" value="{{showToEdit.summary}}">
+            <input id="newSummary" title="newSummary" type="text" value="{{showToEdit.summary}}">
             <br>
             <label for="newAvailability">Change number of seasons:</label>
             <br>
@@ -21,7 +21,7 @@
             <br>
             <label for="summary">What it is all about:</label>
             <br>
-            <input type="text-area" id="summary" name="summary">
+            <input type="text" id="summary" name="summary">
             <br>
             <label for="releaseDate">When it started:</label>
             <br>
