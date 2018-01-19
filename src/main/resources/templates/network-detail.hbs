@@ -1,0 +1,20 @@
+{{#partial "content"}}
+    <p>Here are all the shows listed from {{network.name}}</p>
+    {{#if shows}}
+    <ul>
+        {{#each shows}}
+            <li>
+                <h5>{{ title }}</h5>
+                <p>{{ summary }}  <a href="/network/{{networkid}}/shows/{{id}}">see reviews</a> </p>
+            </li>
+        {{/each}}
+    </ul>
+    {{/if}}
+    <a href="/networks/update">Edit this category</a><br>
+    <a href="/networks/{{networkdId}}/delete">DELETE this network (no undo)</a>
+{{else}}
+    <p>No Shows!</p>
+
+{{/partial}}
+
+{{> layout.hbs}}

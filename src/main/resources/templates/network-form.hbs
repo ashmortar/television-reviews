@@ -1,0 +1,22 @@
+{{#partial "content"}}
+    {{#if networkToEdit}}
+
+
+
+    {{else}}
+        <form action="/networks/new" method="post">
+            <label for="name">Network Name:</label>
+            <br>
+            <input id="name" name="name" type="text">
+            <select id="availability" name="availability">
+                <option value="broadcast">broadcast</option>
+                <option value="cable">cable</option>
+                <option value="subscription">subscription</option>
+            </select>
+    {{/if}}
+    <button type="submit" class="btn btn-default">submit</button>
+    </form>
+
+
+{{/partial}}
+{{> layout.hbs}}

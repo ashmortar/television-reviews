@@ -1,0 +1,12 @@
+{{#partial "content"}}
+    {{#if networks}}
+        <ul>
+        {{#each networks}}
+            <li>{{name}} <a href="/networks/{{id}}">see shows</a></li>
+        {{/each}}
+        </ul>
+    {{/if}}
+
+{{/partial}}
+
+{{> layout.hbs}}
