@@ -103,4 +103,15 @@ public class Sql2oNetworkDao implements NetworkDao {
             System.out.println(ex);
         }
     }
+    @Override
+    public void deleteAllShowsByNetwork(int networkId) {
+        String sql = "DELETE FROM shows WHERE networkId = :networkId";
+        try (Connection con = sql2o.open()){
+            con.createQuery(sql)
+                    .addParameter("networkId", networkId)
+                    .executeUpdate();
+        }catch (Sql2oException ex) {
+            System.out.println(ex);
+        }
+    }
 }

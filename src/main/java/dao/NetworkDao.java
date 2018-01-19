@@ -24,5 +24,6 @@ public interface NetworkDao {
     //delete
 
     public void deleteById(int id); //delete a single network
+    public void deleteAllShowsByNetwork(int networkId);
     public void clearAllNetwork(); //delete all networks
 }

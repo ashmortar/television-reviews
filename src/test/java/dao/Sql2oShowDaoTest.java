@@ -138,4 +138,21 @@ public class Sql2oShowDaoTest {
         assertEquals(0, showDao.getAll().size());
     }
 
+    @Test
+    public void deleteAllReviewsByShow_removesAllInstancesWithMatchingShowId() throws Exception {
+        Show show = setupShow();
+        Show secondShow = setupShow();
+        showDao.add(show);
+        showDao.add(secondShow);
+        Review review = setupReview();
+        Review review1 = setupReview();
+        Review review2 = setupReview();
+        review2.setShowId(2);
+        reviewDao.add(review);
+        reviewDao.add(review1);
+        reviewDao.add(review2);
+        assertEquals(3, reviewDao.getAll().size());
+        showDao.deleteAllReviewsByShow(1);
+        assertEquals(1, reviewDao.getAll().size());
+    }
 }

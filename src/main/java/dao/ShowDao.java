@@ -25,4 +25,5 @@ public interface ShowDao {
 
     void deleteById(int id); //delete a single show
     public void clearAllShows(); //delete all shows
+    void deleteAllReviewsByShow(int showId);
 }

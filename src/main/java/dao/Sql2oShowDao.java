@@ -104,4 +104,16 @@ public class Sql2oShowDao implements ShowDao{
             System.out.println(ex);
         }
     }
+
+    @Override
+    public void deleteAllReviewsByShow(int showId) {
+        String sql = "DELETE FROM reviews WHERE showId = :showId";
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql)
+                    .addParameter("showId", showId)
+                    .executeUpdate();
+        } catch (Sql2oException ex) {
+            System.out.println(ex);
+        }
+    }
 }

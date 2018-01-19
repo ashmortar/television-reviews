@@ -136,4 +136,22 @@ public class Sql2oNetworkDaoTest {
         networkDao.clearAllNetwork();
         assertEquals(0, networkDao.getAll().size());
     }
+
+    @Test
+    public void deleteAllShowsByNetwork_removesAllShowsWithThatNetId_true() throws Exception {
+        Network network = setupNetwork();
+        Network secondNetwork = setupNetwork();
+        Show showNet1 = setupShow();
+        Show showNet12 = setupShow();
+        Show showNet2 = setupShow();
+        showNet2.setNetworkId(2);
+        showDao.add(showNet1);
+        showDao.add(showNet2);
+        showDao.add(showNet12);
+        networkDao.add(network);
+        networkDao.add(secondNetwork);
+        assertEquals(3, showDao.getAll().size());
+        networkDao.deleteAllShowsByNetwork(1);
+        assertEquals(1, showDao.getAll().size());
+    }
 }
