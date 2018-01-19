@@ -3,7 +3,7 @@
     <p>make some bits flip in my database</p>
     <hr>
     {{#if networkToEdit}}
-        <form action="/networks/:networkId/update" method="post">
+        <form action="/networks/{{networkToEdit.id}}/update" method="post">
             <label for="newName">Change what you call it:</label>
             <br>
             <input id="newName" name="newName" type="text" value="{{networkToEdit.name}}">

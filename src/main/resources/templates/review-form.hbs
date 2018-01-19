@@ -1,0 +1,48 @@
+{{#partial "content"}}
+    <h3>Reviews</h3>
+    <p>make some bits flip in my database</p>
+    <p>your review for {{show.title}}</p>
+    <hr>
+    {{#if reviewToEdit}}
+        <h5>{{reviewToEdit.name}}</h5>
+        <form action="/networks/{{network.id}}/shows/{{show.id}}/reviews/{{reviewToEdit.id}}" method="post">
+            <label for="newContent">Change the review:</label>
+            <br>
+            <input id="newContent" title="newContent" type="text-area" value="{{reviewToEdit.content}}">
+            <br>
+            <label for="newRating">Change the rating:</label>
+            <br>
+            <select id="newRating" name="newRating">
+                <option value="1">1  star</option>
+                <option value="2">2  star</option>
+                <option value="3">3  star</option>
+                <option value="4">4  star</option>
+                <option value="5">5  star</option>
+            </select>
+    {{else}}
+        <form action="/networks/{{network.id}}/shows/{{show.id}}/reviews/new" method="post">
+            <label for="reviewerName">Your name:</label>
+            <br>
+            <input id="reviewerName" name="reviewerName" type="text">
+            <br>
+            <label for="content">What did you think?:</label>
+            <br>
+            <input type="text-area" id="content" name="content">
+            <br>
+            <select id="rating" name="rating">
+                <option value="1">1  star</option>
+                <option value="2">2  star</option>
+                <option value="3">3  star</option>
+                <option value="4">4  star</option>
+                <option value="5">5  star</option>
+            </select>
+    {{/if}}
+        <button type="submit" class="btn btn-default">submit</button>
+    </form>
+        <br>
+        <br>
+        <a href="/"><button class="btn btn-default">back</button></a>
+
+
+{{/partial}}
+{{> layout.hbs}}

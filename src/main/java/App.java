@@ -54,6 +54,11 @@ public class App {
         //get: delete all networks
         get("/networks/delete", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
+
+            //for navbar
+            List<Network> networks = networkDao.getAll();
+            model.put("networks", networks);
+
             networkDao.clearAllNetwork();
             return new ModelAndView(model, "delete.hbs");
         }, new HandlebarsTemplateEngine());
@@ -61,6 +66,11 @@ public class App {
         //get: delete all shows
         get("/shows/delete", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
+
+            //for navbar
+            List<Network> networks = networkDao.getAll();
+            model.put("networks", networks);
+
             showDao.clearAllShows();
             return new ModelAndView(model, "delete.hbs");
         }, new HandlebarsTemplateEngine());
@@ -68,6 +78,9 @@ public class App {
         //get: delete all reviews
         get("/reviews/delete", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
+            //for navbar
+            List<Network> networks = networkDao.getAll();
+            model.put("networks", networks);
             reviewDao.clearAllReviews();
             return new ModelAndView(model, "delete.hbs");
         }, new HandlebarsTemplateEngine());
@@ -77,12 +90,18 @@ public class App {
         //get: show a form to create a new Network
         get("/networks/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
+            //for navbar
+            List<Network> networks = networkDao.getAll();
+            model.put("networks", networks);
             return new ModelAndView(model, "network-form.hbs");
         }, new HandlebarsTemplateEngine());
 
         //post: process new network form
         post("/networks/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
+            //for navbar
+            List<Network> networks = networkDao.getAll();
+            model.put("networks", networks);
             String name = request.queryParams("name");
             String availability = request.queryParams("availability");
             Network newNetwork = new Network(name, availability);
@@ -94,6 +113,9 @@ public class App {
         //get: show a form to create a new show
         get("networks/:networkId/shows/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
+            //for navbar
+            List<Network> networks = networkDao.getAll();
+            model.put("networks", networks);
 
             int networkId = Integer.parseInt(request.params(":networkId"));
             Network network = networkDao.findById(networkId);
@@ -106,10 +128,17 @@ public class App {
         //post: process new show form
         post("networks/:networkId/shows/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
+            //for navbar
+            List<Network> networks = networkDao.getAll();
+            model.put("networks", networks);
+
+            int networkId = Integer.parseInt(request.params(":networkId"));
+            Network network = networkDao.findById(networkId);
+            model.put("network", network);
+
             String title = request.queryParams("title");
             String summary = request.queryParams("summary");
             String releaseDate = request.queryParams("releaseDate");
-            int networkId = Integer.parseInt(request.params("networkId"));
             int seasons = Integer.parseInt(request.queryParams("seasons"));
 
             Show newShow = new Show(title, summary, releaseDate, networkId, seasons);
@@ -118,17 +147,40 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         //get: show a form to create a new review
-        get("/networks/:networkId/shows/:showId/review/new", (request, response) -> {
+        get("/networks/:networkId/shows/:showId/reviews/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
+            //for navbar
+            List<Network> networks = networkDao.getAll();
+            model.put("networks", networks);
+
+            int networkId = Integer.parseInt(request.params(":networkId"));
+            Network network = networkDao.findById(networkId);
+            model.put("network", network);
+
+            int showId = Integer.parseInt(request.params(":showId"));
+            Show show = showDao.findById(showId);
+            model.put("show", show);
+
             return new ModelAndView(model, "review-form.hbs");
         }, new HandlebarsTemplateEngine());
 
         //post: process new review form
-        post("/networks/:networkId/shows/:showId/review/new", (request, response) -> {
+        post("/networks/:networkId/shows/:showId/reviews/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
+            //for navbar
+            List<Network> networks = networkDao.getAll();
+            model.put("networks", networks);
+
+            int networkId = Integer.parseInt(request.params(":networkId"));
+            Network network = networkDao.findById(networkId);
+            model.put("network", network);
+
+            int showId = Integer.parseInt(request.params(":showId"));
+            Show show = showDao.findById(showId);
+            model.put("show", show);
+
             String content = request.queryParams("content");
             String reviewerName = request.queryParams("reviewerName");
-            int showId = Integer.parseInt(request.params("showId"));
             int rating = Integer.parseInt(request.queryParams("rating"));
 
             Review newReview = new Review(content, showId, reviewerName, rating);
@@ -142,7 +194,6 @@ public class App {
         //get: show all networks
         get("/networks", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-
             //add all networks to model
             List<Network> networks = networkDao.getAll();
             model.put("networks", networks);
@@ -153,7 +204,9 @@ public class App {
         //get: show a single network and list shows
         get("/networks/:networkId", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-
+            //for navbar
+            List<Network> networks = networkDao.getAll();
+            model.put("networks", networks);
             int networkId = Integer.parseInt(request.params("networkId"));
             Network network = networkDao.findById(networkId);
             model.put("network", network);
@@ -167,7 +220,9 @@ public class App {
         //get: a single show detail and a list of reviews
         get("/networks/:networkId/shows/:showId", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-
+            //for navbar
+            List<Network> networks = networkDao.getAll();
+            model.put("networks", networks);
             int networkId = Integer.parseInt(request.params("networkId"));
             Network network = networkDao.findById(networkId);
             model.put("network", network);
@@ -179,13 +234,15 @@ public class App {
             List<Review> reviews = showDao.getAllReviewsByShow(showId);
             model.put("reviews", reviews);
 
-            return new ModelAndView(model, "shows-detail.hbs");
+            return new ModelAndView(model, "show-detail.hbs");
         }, new HandlebarsTemplateEngine());
 
         //get: show a single review detail
-        get("/network/:networkID/show/:showId/review/:reviewId", (request, response) -> {
+        get("/network/:networkID/show/:showId/reviews/:reviewId", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-
+            //for navbar
+            List<Network> networks = networkDao.getAll();
+            model.put("networks", networks);
             int networkId = Integer.parseInt(request.params("networkId"));
             Network network = networkDao.findById(networkId);
             model.put("network", network);
@@ -207,7 +264,9 @@ public class App {
         //get: show a form to update a network
         get("/networks/:networkId/update", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-
+            //for navbar
+            List<Network> networks = networkDao.getAll();
+            model.put("networks", networks);
             int networkId = Integer.parseInt(request.params("networkId"));
             Network networkToEdit = networkDao.findById(networkId);
             model.put("networkToEdit", networkToEdit);
@@ -218,7 +277,9 @@ public class App {
         //post: process update network form
         post("/networks/:networkId/update", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-
+            //for navbar
+            List<Network> networks = networkDao.getAll();
+            model.put("networks", networks);
             int networkId = Integer.parseInt(request.params("networkId"));
             String newName = request.queryParams("newName");
             String newAvailability = request.queryParams("newAvailability");
@@ -230,7 +291,9 @@ public class App {
         //get: show a form to update a show
         get("/networks/:networkId/shows/:showId/update", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-
+            //for navbar
+            List<Network> networks = networkDao.getAll();
+            model.put("networks", networks);
             int networkId = Integer.parseInt(request.params("networkId"));
             int showId = Integer.parseInt(request.params("showId"));
             Network networkToEdit = networkDao.findById(networkId);
@@ -244,7 +307,9 @@ public class App {
         //post: process update show form
         post("/networks/:networkId/shows/:showId/update", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-
+            //for navbar
+            List<Network> networks = networkDao.getAll();
+            model.put("networks", networks);
             int showId = Integer.parseInt(request.params("showId"));
             String newSummary = request.queryParams("newSummary");
             int newSeasons = Integer.parseInt(request.queryParams("newSeasons"));
@@ -259,7 +324,9 @@ public class App {
             int networkId = Integer.parseInt(request.params("networkId"));
             int showId = Integer.parseInt(request.params("showId"));
             int reviewId = Integer.parseInt(request.params("reviewId"));
-
+            //for navbar
+            List<Network> networks = networkDao.getAll();
+            model.put("networks", networks);
             Review reviewToEdit = reviewDao.findById(reviewId);
             model.put("reviewToEdit", reviewToEdit);
 
@@ -269,7 +336,9 @@ public class App {
         //post: process update review form
         post("/networks/:networkId/shows/:showId/reviews/:reviewId/update", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-
+            //for navbar
+            List<Network> networks = networkDao.getAll();
+            model.put("networks", networks);
             int reviewId = Integer.parseInt(request.params("requestId"));
             String newContent = request.queryParams("newContent");
             int newRating = Integer.parseInt(request.queryParams("newRating"));
@@ -285,7 +354,9 @@ public class App {
         //get: delete a network
         get("/networks/:networkId/delete", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-
+            //for navbar
+            List<Network> networks = networkDao.getAll();
+            model.put("networks", networks);
             int networkId = Integer.parseInt(request.params("networkId"));
 
             reviewDao.deleteById(networkId);
@@ -296,7 +367,9 @@ public class App {
         //get: delete a show from a network
         get("/networks/:networkId/shows/:showId/delete", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-
+            //for navbar
+            List<Network> networks = networkDao.getAll();
+            model.put("networks", networks);
             int showId = Integer.parseInt("showId");
 
             reviewDao.deleteById(showId);
@@ -307,7 +380,9 @@ public class App {
         //get: delete a review from a show
         get("/networks/:networkId/shows/:showId/delete", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-
+            //for navbar
+            List<Network> networks = networkDao.getAll();
+            model.put("networks", networks);
             int reviewId = Integer.parseInt(request.params("reviewID"));
 
             reviewDao.deleteById(reviewId);

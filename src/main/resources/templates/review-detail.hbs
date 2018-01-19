@@ -1,0 +1,14 @@
+{{#partial "content"}}
+    <h3>{{show.title}} - {{review.rating}} out of 5</h3>
+    <p>"{{review.content}}"</p>
+    <p>-{{review.reviewerName}}</p>
+    <br>
+    <p><a href="/networks/{{network.id}}/shows/{{show.id}}/review/{{id}}/update">Change</a> this review</p>
+    <p><a href="/networks/{{network.id}}/shows/{{show.id}}/review/{{id}}/delete">Destroy</a> this review</p>
+    <br>
+    <br>
+    <a href="/"><button class="btn btn-default">back</button></a>
+{{/partial}}
+
+{{> layout.hbs}}
+

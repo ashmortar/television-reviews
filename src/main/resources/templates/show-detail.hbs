@@ -1,0 +1,31 @@
+{{#partial "content"}}
+    <h3>{{show.title}}</h3>
+    <p>{{show.seasons}} seasons beginning in {{show.releaseDate}}</p>
+    <p>{{show.summary}}</p>
+    <hr>
+    {{#if reviews}}
+        <ul>
+            {{#each reviews}}
+                <li>
+                    <h5>{{reviewerName}} rated it {{rating}} out of 5</h5>
+                    <p><a href="/networks/{{network.id}}/shows/{{show.id}}/reviews/{{id}}">See more</a></p>
+                 </li>
+            {{/each}}
+        </ul>
+        <hr>
+    {{else}}
+        <h5>Halt!</h5>
+        <p>You need to <a href="/networks/{{network.id}}/shows/{{show.id}}/reviews/new">add a review</a> first!</p>
+        <hr>
+    {{/if}}
+    <p><a href="/networks/{{network.id}}/shows/{{show.id}}/reviews/new">Add</a> a review</p>
+    <p><a href="/networks/{{network.id}}/shows/{{show.id}}/update/">Change</a> this show<br></p>
+    <p><a href="/networks/{{network.id}}/shows/{{show.id}}delete">Destroy</a> this show</p>
+    <p><a href="/networks/{{network.id}}/shows/{{show.id}}/reviews/delete">Destroy</a> all reviews of this show</p>
+    <br>
+    <br>
+    <a href="/"><button class="btn btn-default">back</button></a>
+
+{{/partial}}
+
+{{> layout.hbs}}

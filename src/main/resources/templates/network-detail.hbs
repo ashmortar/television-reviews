@@ -1,12 +1,13 @@
 {{#partial "content"}}
     <h3>{{network.name}}</h3>
+    <p>{{network.availability}}</p>
     <hr>
     {{#if shows}}
     <ul>
         {{#each shows}}
             <li>
                 <h5>{{title}}</h5>
-                <p>{{summary}}  <a href="/network/{{network.id}}/shows/{{id}}">see/add reviews</a> </p>
+                <p>{{summary}}  <a href="/networks/{{network.id}}/shows/{{id}}">see/add reviews</a> </p>
             </li>
         {{/each}}
     </ul>
